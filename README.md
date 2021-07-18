@@ -3,6 +3,8 @@
 Demo Project of
 * Hexagonal architecture
 * Domain-driven design
+* Performance monitoring by AOP
+* Request Response Logging by Filter
 
 Swagger:
 
