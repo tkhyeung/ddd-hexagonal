@@ -2,6 +2,7 @@ package com.example.ddd.domain;
 
 import com.example.ddd.domain.repository.ProductRepository;
 import com.example.ddd.domain.service.ProductServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -9,6 +10,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -20,7 +26,14 @@ import static org.mockito.ArgumentMatchers.refEq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
+//@ExtendWith(MockitoExtension.class)
+@ExtendWith(SpringExtension.class) //required for loading properties as spring context needed
+@TestPropertySource(
+        locations = "classpath:junit_test.properties"
+//        ,properties = {"test.value=123456789"}
+        )
+@Slf4j
+//@SpringBootTest //can load application.properties will load that one in src/main/resources/application.properties (load full context)
 public class ProductServiceUnitTest {
 
     @InjectMocks
@@ -115,6 +128,17 @@ public class ProductServiceUnitTest {
         service.deleteProduct(id);
         Mockito.verify(repository, times(1))
                 .delete(eq(id));
+    }
+
+    @Value("${test.value}")
+    private String testValue;
+
+    @Test
+    public void testValue() {
+//        ReflectionTestUtils.setField(service, "testValue", "abcdefg");
+        log.info("in testValue: {}", testValue);
+        ReflectionTestUtils.setField(service, "testValue", testValue);
+        service.testProperties();
     }
 
 
