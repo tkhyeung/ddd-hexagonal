@@ -5,7 +5,7 @@ Demo Project of
 * Domain-driven design
 * Performance monitoring by AOP
 * Request Response Logging by Filter
-* JUnit5 Test with loading properties and using ReflectionTestUtils to inject value 
+* JUnit5 Test with loading properties, using ReflectionTestUtils to inject value and doAnswer 
 
 Swagger:
 

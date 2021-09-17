@@ -23,8 +23,7 @@ import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.refEq;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 //@ExtendWith(MockitoExtension.class)
 @ExtendWith(SpringExtension.class) //required for loading properties as spring context needed
@@ -125,6 +124,14 @@ public class ProductServiceUnitTest {
     @Test
     public void deleteProduct() {
         long id = 1;
+        //demonstrate doAnswer, useful when additional actions are required when the method invoked.
+        doAnswer(invocation -> {
+            Object[] args = invocation.getArguments();
+            log.info("calling deleteProduct with args:{}", args);
+            log.info("calling deleteProduct with id:{}", invocation.getArgument(0, Long.class));
+            return null;
+                }
+         ).when(repository).delete(eq(id));
         service.deleteProduct(id);
         Mockito.verify(repository, times(1))
                 .delete(eq(id));
