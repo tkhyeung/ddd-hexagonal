@@ -59,6 +59,16 @@
 			<version>1.5.2</version>
 		</dependency>
 
+		<!-- contract test -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-contract-verifier</artifactId>
+<!--			<version>2.2.8.RELEASE</version> using JUnit 4-->
+			<version>3.0.4</version> <!-- default JUnit 5 -->
+			<scope>test</scope>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>
@@ -75,6 +85,21 @@
 					</excludes>
 				</configuration>
 			</plugin>
+
+			<!-- contract test -->
+			<plugin>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-contract-maven-plugin</artifactId>
+<!--				<version>2.2.8.RELEASE</version>-->
+				<version>3.0.4</version>
+				<extensions>true</extensions>
+				<configuration>
+					<baseClassForTests>
+						com.example.ddd.contract_test.BaseContractTest
+					</baseClassForTests>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 
