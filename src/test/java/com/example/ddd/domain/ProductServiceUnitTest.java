@@ -6,6 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -20,6 +23,7 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.refEq;
@@ -149,4 +153,19 @@ public class ProductServiceUnitTest {
     }
 
 
+    private static Stream<Arguments> testDataForCreateProduct(){
+        return Stream.of(
+                Arguments.of(Product.builder().id(1).productId("1").description("First Product").price(new BigDecimal(100)).build()),
+                Arguments.of(Product.builder().id(2).productId("2").description("2nd Product").price(new BigDecimal(200)).build()),
+                Arguments.of(Product.builder().id(3).productId("3").description("3rd Product").price(new BigDecimal(300)).build())
+        );
+    }
+
+    @MethodSource("testDataForCreateProduct")
+    @ParameterizedTest
+    public void createProductTestWithData(Product product){
+        service.createProduct(product);
+        Mockito.verify(repository, times(1))
+                .save(refEq(product));
+    }
 }
