@@ -1,9 +1,6 @@
 package com.example.ddd.driving_adapter.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -11,6 +8,7 @@ import java.math.BigDecimal;
 @Builder
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 @ToString
 public class ProductRequest {
     @NotNull

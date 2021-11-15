@@ -1,9 +1,6 @@
 package com.example.ddd.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 
@@ -11,6 +8,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Getter
 @Builder
+@ToString
 public class Product {
 
     private long id;
