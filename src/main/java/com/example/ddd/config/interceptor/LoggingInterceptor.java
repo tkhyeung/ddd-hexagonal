@@ -2,6 +2,7 @@ package com.example.ddd.config.interceptor;
 
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,6 +41,20 @@ public class LoggingInterceptor implements HandlerInterceptor {
         if (response instanceof ResponseWrapper) {
             log.info("Interceptor::AfterCompletion::responseStatus:{},responseBody:{}",
                     response.getStatus(), ((ResponseWrapper) response).getResponseBody());
+        }
+
+
+        log.info("handler is {}", handler);
+        if (handler instanceof HandlerMethod) {
+            HandlerMethod handlerMethod = ((HandlerMethod) handler);
+            log.info("Controller bean is {}, with annotations {}",
+                    handlerMethod.getBean().getClass().getName(),
+                    List.of(handlerMethod.getBean().getClass().getDeclaredAnnotations()).stream().map(a -> a.annotationType().getSimpleName()).collect(Collectors.toList()));
+            log.info("Endpoint method is {}, return Type is {}, with annotations {}",
+                    handlerMethod.getMethod().getName(),
+                    ((HandlerMethod) handler).getMethod().getReturnType().getName(),
+                    List.of(handlerMethod.getMethod().getDeclaredAnnotations()).stream().map(a -> a.annotationType().getSimpleName()).collect(Collectors.toList()));
+            log.info("log message is {}", handlerMethod.getShortLogMessage());
         }
     }
 
