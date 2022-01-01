@@ -1,4 +1,4 @@
-package com.example.ddd.config;
+package com.example.ddd.config.filter;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
