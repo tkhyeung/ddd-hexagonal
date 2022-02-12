@@ -51,6 +51,7 @@ public class AsyncPassAlongContextAndMDCController {
         asyncTrigger(() ->
                 log.info("async testing (passing Request Context) to get the same request context from other thread {}: {}",
                         "host", getHeaderValue("host")));
+        //REMARK: The request context will be cleared once the response is committed, even though request attribute is not null.
     }
 
     private void asyncTrigger(Runnable runnable) {
