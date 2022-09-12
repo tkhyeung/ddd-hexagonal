@@ -12,3 +12,8 @@ Demo Project of
 Swagger:
 
 http://localhost:8080/swagger-ui.html
+
+
+Ref:
+
+https://www.baeldung.com/hexagonal-architecture-ddd-spring
